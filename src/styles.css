@@ -311,10 +311,12 @@ body[data-menu="1"] { overflow: hidden; }
 .hw-features:has(> li:nth-child(3)) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .hw-features:has(> li:first-child:nth-last-child(4)),
 .hw-features:has(> li:nth-child(7)) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+/* Narrower, four a row becomes two (the seventh card takes its row alone,
+   full width); three a row still fits, the cards being stacked. */
 @media (max-width: 999px) {
-  .hw-features:has(> li:nth-child(3)),
   .hw-features:has(> li:first-child:nth-last-child(4)),
   .hw-features:has(> li:nth-child(7)) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hw-features:has(> li:nth-child(7)) > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 @media (max-width: 559px) {
   .hw-features:has(> li:nth-child(3)),
