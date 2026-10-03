@@ -150,6 +150,9 @@ h1, h2, h3, h4 { font-family: var(--hw-display); font-weight: 400; color: var(--
 .hw-choice { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px; border: 1.5px solid var(--hw-line-2); background: var(--hw-white); color: var(--hw-ink); }
 .hw-choice[aria-checked="true"] { border-color: var(--hw-ink); background: var(--hw-white); }
 .hw-choice:disabled { opacity: .55; }
+/* The method's or courier's badge, beside the price: names stay aligned whether a row has one or not. */
+.hw-choice-logo { display: block; height: 20px; width: auto; max-width: 64px; object-fit: contain; flex: none; }
+@media (max-width: 480px) { .hw-choice-logo { height: 16px; max-width: 48px; } }
 .hw-radio { width: 18px; height: 18px; border-radius: 999px; border: 2px solid var(--hw-line-3); display: grid; place-items: center; flex: none; }
 .hw-choice[aria-checked="true"] .hw-radio { border-color: var(--hw-primary); }
 .hw-choice[aria-checked="true"] .hw-radio::after { content: ''; width: 8px; height: 8px; border-radius: 999px; background: var(--hw-primary); }
@@ -447,6 +450,11 @@ body[data-menu="1"] { overflow: hidden; }
 .hw-footer-bottom > div { padding: 22px 0 28px; border-top: 1px solid var(--hw-line-2); display: flex; justify-content: space-between; align-items: center; gap: 14px 28px; flex-wrap: wrap; font-size: 13px; color: var(--hw-muted); }
 .hw-footer-bottom strong { color: var(--hw-ink); font-weight: 600; }
 .hw-footer-list { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+/* The platform's payment and courier badges (footer, trust strip) on the page's paper; a name without one beside them at the same height. */
+.hw-marks { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; vertical-align: middle; }
+.hw-logo-chip, .hw-mark-text { display: inline-flex; align-items: center; min-height: 28px; box-sizing: border-box; padding: 5px 12px; border-radius: 999px; background: var(--hw-white); border: 1px solid var(--hw-line-2); font-size: 12px; line-height: 1.2; color: var(--hw-ink); }
+.hw-logo-chip img { display: block; height: 16px; width: auto; max-width: 76px; object-fit: contain; }
+.hw-chip-sub .hw-marks { margin-top: 6px; }
 
 /* --- loading shimmer --------------------------------------------------- */
 .hw-shimmer {

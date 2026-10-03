@@ -202,6 +202,20 @@ describe('heroChips', () => {
       ['Aman', 'QRIS · BCA VA'],
     ]);
   });
+  it('lists up to three badges, one per badge, keeping names the server has none for', () => {
+    const bca = 'http://api.test/logos/payment/bca.svg';
+    const chips = heroChips(config({
+      paymentMethods: [
+        { name: 'VA BCA', enabled: true, logo_url: bca },
+        { name: 'Transfer BCA', enabled: true, logo_url: bca },
+        { name: 'Transfer SeaBank', enabled: true },
+        { name: 'QRIS', enabled: true, logo_url: 'http://api.test/logos/payment/qris.svg' },
+        { name: 'COD', enabled: true },
+      ],
+    }));
+    expect(chips[2].marks.map((m) => m.name)).toEqual(['VA BCA', 'Transfer SeaBank', 'QRIS']);
+    expect(chips[2].sub).toBe('VA BCA · Transfer BCA · Transfer SeaBank');
+  });
   it('leaves out a part with nothing behind it', () => {
     expect(heroChips({})).toEqual([]);
     expect(heroChips({ paymentMethods: [{ enabled: false, name: 'x' }], couriers: [] })).toEqual([]);
