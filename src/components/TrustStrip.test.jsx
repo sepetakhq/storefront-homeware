@@ -38,6 +38,23 @@ describe('TrustStrip', () => {
     expect(screen.getByText('Senin–Sabtu')).toBeTruthy();
   });
 
+  it("draws the server's badges under the payment and courier labels, once per badge", () => {
+    const bca = 'http://api.test/logos/payment/bca.svg';
+    const { container } = at('/', {
+      paymentMethods: [
+        { name: 'VA BCA', enabled: true, logo_url: bca },
+        { name: 'Transfer BCA', enabled: true, logo_url: bca },
+        { name: 'Transfer SeaBank', enabled: true },
+      ],
+      couriers: [{ name: 'Kurir Toko', enabled: true }],
+    });
+    expect([...container.querySelectorAll('.hw-logo-chip img')].map((i) => i.getAttribute('src'))).toEqual([bca]);
+    expect(screen.getByRole('img', { name: 'VA BCA' })).toBeTruthy();
+    expect(screen.getByText('Transfer SeaBank').className).toBe('hw-mark-text');
+    // A list with no badge at all keeps the design's plain line.
+    expect(screen.getByText('Kurir Toko').className).toBe('hw-chip-sub');
+  });
+
   it('draws nothing off those pages, or for a shop with nothing to promise', () => {
     const { container } = at('/checkout');
     expect(container.querySelector('.hw-trust')).toBeNull();

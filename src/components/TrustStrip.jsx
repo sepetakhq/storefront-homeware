@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useConfig } from '@sepetakhq/storefront-kit/config/ConfigProvider';
 
+import Marks from './Marks.jsx';
 import Icon from '../ui/Icon.jsx';
 import { trustItems } from '../lib/copy.js';
 
@@ -33,7 +34,7 @@ export default function TrustStrip() {
             </span>
             <span style={{ minWidth: 0 }}>
               <b>{c.title}</b>
-              {c.sub && <span className="hw-chip-sub">{c.sub}</span>}
+              {c.sub && <span className="hw-chip-sub">{c.marks ? <Marks items={c.marks} sep=" · " /> : c.sub}</span>}
             </span>
           </li>
         ))}

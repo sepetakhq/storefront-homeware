@@ -185,15 +185,27 @@ export function heroChips({ brand, copy, freeShipping, paymentMethods = [], cour
     const note = copy(sectionText(sections, 'hero_chip_shipping_note'));
     if (note) chips.push({ icon: 'truck', title: sectionText(sections, 'hero_chip_shipping'), sub: note });
   }
+  // `marks` is the same short list as the platform's badges, for the strip
+  // to draw where the server sent one.
   const ships = couriers.filter((c) => c?.enabled && c?.name);
   if (ships.length) {
-    chips.push({ icon: 'box', title: sectionText(sections, 'hero_chip_couriers'), sub: ships.slice(0, 3).map((c) => c.name).join(' · ') });
+    chips.push({ icon: 'box', title: sectionText(sections, 'hero_chip_couriers'), sub: ships.slice(0, 3).map((c) => c.name).join(' · '), marks: logoChips(ships).slice(0, 3) });
   }
   const pays = paymentMethods.filter((p) => p?.enabled && p?.name);
   if (pays.length) {
-    chips.push({ icon: 'card', title: sectionText(sections, 'hero_chip_payment'), sub: pays.slice(0, 3).map((p) => p.name).join(' · ') });
+    chips.push({ icon: 'card', title: sectionText(sections, 'hero_chip_payment'), sub: pays.slice(0, 3).map((p) => p.name).join(' · '), marks: logoChips(pays).slice(0, 3) });
   }
   return chips;
+}
+
+/**
+ * One chip per badge: "VA BCA" and "Transfer BCA", or JNE REG and JNE YES,
+ * are the same mark to a buyer checking whether the shop takes their bank or
+ * ships with their courier. A name the platform has no badge for stays.
+ */
+export function logoChips(items) {
+  const seen = new Set();
+  return items.filter((x) => !x.logo_url || (!seen.has(x.logo_url) && seen.add(x.logo_url)));
 }
 
 /**

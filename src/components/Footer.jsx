@@ -4,6 +4,7 @@ import { useConfig } from '@sepetakhq/storefront-kit/config/ConfigProvider';
 import { useCategories } from '@sepetakhq/storefront-kit/hooks/queries';
 
 import { BrandMark } from './BrandMark.jsx';
+import Marks from './Marks.jsx';
 import Icon from '../ui/Icon.jsx';
 import { askLink, footerLinks, originLine, sectionText, socialLabel } from '../lib/copy.js';
 
@@ -121,12 +122,12 @@ export default function Footer() {
             <div className="hw-footer-list">
               {payments.length > 0 && (
                 <span>
-                  <strong>{s('footer_payment_heading')}</strong> · {payments.map((m) => m.name).join(', ')}
+                  <strong>{s('footer_payment_heading')}</strong> · <Marks items={payments} sep=", " />
                 </span>
               )}
               {ships.length > 0 && (
                 <span>
-                  <strong>{s('footer_shipping_heading')}</strong> · {ships.map((c) => c.name).join(', ')}
+                  <strong>{s('footer_shipping_heading')}</strong> · <Marks items={ships} sep=", " />
                 </span>
               )}
             </div>
