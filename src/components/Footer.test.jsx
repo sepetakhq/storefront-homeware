@@ -114,4 +114,22 @@ describe('Footer', () => {
     setup({ whatsapp_url: 'https://wa.me/620000', whatsapp_text: 'Chat kami' });
     expect(screen.getByRole('link', { name: 'Chat kami' }).getAttribute('href')).toBe('https://wa.me/620000');
   });
+
+  // The platform's mark rides the plan. An older API version strips the
+  // field, and then nothing is drawn.
+  it('shows the Sepetak badge only when the shop carries it', () => {
+    setup();
+    expect(screen.queryByRole('link', { name: 'Dibuat dengan Sepetak' })).toBeNull();
+    cleanup();
+    config.tenant = { ...config.tenant, sepetak_badge: true };
+    render(
+      <MemoryRouter>
+        <Footer />
+      </MemoryRouter>,
+    );
+    const a = screen.getByRole('link', { name: 'Dibuat dengan Sepetak' });
+    expect(a.getAttribute('href')).toBe('https://sepetak.com/?ref=toko');
+    expect(a.getAttribute('target')).toBe('_blank');
+    delete config.tenant;
+  });
 });

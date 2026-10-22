@@ -17,7 +17,10 @@ import { askLink, footerLinks, originLine, sectionText, socialLabel } from '../l
  * nothing.
  */
 export default function Footer() {
-  const { brand, paymentMethods, couriers } = useConfig();
+  const { brand, paymentMethods, couriers, tenant } = useConfig();
+  // The platform's mark, on the plans that carry it. Absent on an older API
+  // version, which strips the field, so nothing is drawn.
+  const badge = tenant?.sepetak_badge === true;
   const { data: categories } = useCategories();
   const payments = (paymentMethods ?? []).filter((m) => m.enabled && m.name);
   const ships = (couriers ?? []).filter((c) => c.enabled && c.name);
@@ -115,10 +118,17 @@ export default function Footer() {
         )}
       </div>
 
-      {(brand.copyright || payments.length > 0 || ships.length > 0) && (
+      {(brand.copyright || payments.length > 0 || ships.length > 0 || badge) && (
         <div className="hw-footer-bottom">
           <div>
-            <span>{brand.copyright || ''}</span>
+            <span className="hw-footer-sign">
+              {brand.copyright && <span>{brand.copyright}</span>}
+              {badge && (
+                <a href="https://sepetak.com/?ref=toko" target="_blank" rel="noopener" className="hw-footer-badge">
+                  Dibuat dengan Sepetak
+                </a>
+              )}
+            </span>
             <div className="hw-footer-list">
               {payments.length > 0 && (
                 <span>
