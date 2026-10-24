@@ -347,6 +347,26 @@ describe('ProductRoute notes and links', () => {
     expect(screen.getByRole('button', { name: `Tambah ke keranjang · ${fmt(158000)}` })).toBeTruthy();
   });
 
+  it('sells a weighed product per kg, from its minimum in its steps', () => {
+    withProduct({ price: 60000, stock: 5000, unit: 'kg', qty_step: 100, qty_min: 500 });
+    panel();
+    expect(screen.getByText('/kg')).toBeTruthy();
+    expect(screen.getByText('0,5 kg')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Kurangi jumlah' }).disabled).toBe(true);
+    fireEvent.click(screen.getByRole('button', { name: 'Tambah jumlah' }));
+    expect(screen.getByText('0,6 kg')).toBeTruthy();
+    expect(screen.getByRole('button', { name: `Tambah ke keranjang · ${fmt(36000)}` })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: `Tambah ke keranjang · ${fmt(36000)}` }));
+    expect(cartCalls.at(-1)[1]).toBe(600);
+  });
+
+  it('keeps a pcs product a bare count with no unit after the price', () => {
+    withProduct({ stock: 40 });
+    panel();
+    expect(screen.queryByText('/pcs')).toBeNull();
+    expect(screen.getByText('1')).toBeTruthy();
+  });
+
   it('offers the WhatsApp question only with a usable shop URL', () => {
     withProduct({});
     panel();

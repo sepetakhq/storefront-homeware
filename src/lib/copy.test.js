@@ -91,6 +91,8 @@ describe('cardNote / cardVeil', () => {
     expect(cardNote({ ...base, preorder: true, preorder_lead_days: 0 })).toBe('Pre-order · dibuat setelah dipesan');
     expect(cardNote({ ...base, stock: 4 })).toBe('Sisa 4 lagi');
     expect(cardNote({ ...base, stock: 24 })).toBe('');
+    expect(cardNote({ ...base, stock: 1500, unit: 'kg' })).toBe('Sisa 1,5 kg lagi');
+    expect(cardNote({ ...base, stock: 24000, unit: 'kg' })).toBe('');
     expect(cardNote({ ...base, stock: 3, unlimited_stock: true })).toBe('');
     expect(cardNote({ ...base, stock: 0, sold_out: true, availability: 'sold_out' })).toBe('');
     expect(cardNote({ ...base, stock: 3, availability: 'scheduled' })).toBe('');
