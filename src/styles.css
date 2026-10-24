@@ -448,6 +448,9 @@ body[data-menu="1"] { overflow: hidden; }
 .hw-footer a.hw-footer-wa { font-weight: 600; color: var(--hw-primary); }
 .hw-footer-bottom { max-width: var(--hw-max); margin: 0 auto; padding: 0 var(--hw-gutter); }
 .hw-footer-bottom > div { padding: 22px 0 28px; border-top: 1px solid var(--hw-line-2); display: flex; justify-content: space-between; align-items: center; gap: 14px 28px; flex-wrap: wrap; font-size: 13px; color: var(--hw-muted); }
+.hw-footer-sign { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.hw-footer a.hw-footer-badge { font-size: 12px; color: var(--hw-muted); white-space: nowrap; }
+.hw-footer a.hw-footer-badge:hover { color: var(--hw-primary); }
 .hw-footer-bottom strong { color: var(--hw-ink); font-weight: 600; }
 .hw-footer-list { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 /* The platform's payment and courier badges (footer, trust strip) on the page's paper; a name without one beside them at the same height. */
